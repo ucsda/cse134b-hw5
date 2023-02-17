@@ -12,20 +12,46 @@
 	<title>Super cool resume</title>
 	<meta charset="utf-8">
 	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+	<div id="inner-body">
 	<header>
 	<nav>
-		By section:<br>
-		<p><a href="#section_Education">Education</a></p>
-		<p><a href="#section_Experience">Experience</a></p>
-		<p><a href="#section_Persona">Persona</a></p>
-		<p><a href="#section_Experiments">Experiments</a></p>
+		<ol>
+			<li><a href="#section_Education">Education</a></li>
+			<li><a href="#section_Experience">Experience</a></li>
+			<li><a href="#section_Persona">Persona</a></li>
+			<li><a href="#section_Experiments">Experiments</a></li>
+		</ol>
 	</nav>
 	</header>
+	<hr>
 	<main>
-	<h1>Super cool resume</h1>
+	<h1>Super Cool Resume</h1>
+	<hr>
+	<div id="hypnosis-container">
+	<figure>
+		<picture>
+
+			<!-- always prefer png -->
+			<!-- only do 256 sized when they cant hover, since we only enlarge
+				the image when you hover it. -->
+			<source srcset="hypno_256.png" type="image/png" media="(any-hover: none)">
+			<!-- jpg is smaller for 256 sized -->
+			<source srcset="hypno_256.jpg" type="image/jpg" media="(any-hover: none)">
+			<source srcset="hypno_256.webp" type="image/webp" media="(any-hover: none)">
+			<source srcset="hypno.png" type="image/png">
+			<!-- webp is smaller for big image -->
+			<source srcset="hypno.webp" type="image/webp">
+			<img id="hypno" src="hypno.jpg" alt="hypnotizing spiral">
+		</picture>
+		<figcaption id="hypno-message">Hire me.</figcaption>
+	</figure>
+	<cite>https://favpng.com/png_view/hypnotize-hypnosis-spiral-clip-art-animal-magnetism-circle-png/vULLjjgp</cite>
+	</div>
+	<hr>
 	<section id="section_Education">
 	<h2>Education</h2>
 	<ol>
@@ -41,14 +67,16 @@
 	<section id="section_Experience">
 	<h2>Experience</h2>
 	<table>
+		<!-- use 32^2 images instead of the larger, since we only render as icons -->
 		<caption><em>All</em> of my work experience, table-ized</caption>
 		<colgroup>
 			<col span="2" class="what">
 			<col span="2" class="when">
+			<col span="1" class="icon">
 		</colgroup>
 		<thead>
 			<tr>
-				<th>Title</th><th>Where</th><th>When</th><th>How long</th>
+				<th>Title</th><th>Where</th><th>When</th><th>How long</th><th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -57,18 +85,48 @@
 				<td>Up in the Burgers Inc.</td>
 				<td>September 2013</td>
 				<td>8 months</td>
+				<td>
+					<picture>
+						<!-- prefer allowing transparency -->
+						<source srcset="burger_32.png" type="image/png">
+						<!-- then pick smallest size in bytes -->
+						<source srcset="burger_32.webp" type="image/webp">
+						<img src="burger_32.jpg" alt="burger">
+					</picture>
+					<cite>https://www.pngmart.com/image/65150</cite>
+				</td>
 			</tr>
 			<tr>
 				<td>Orange Hill Administrator</td>
 				<td>Hilly Places Corporation</td>
 				<td>December 2014</td>
 				<td>4 months</td>
+				<td>
+					<picture>
+						<!-- prefer allowing transparency -->
+						<source srcset="orange_hill_32.png" type="image/png">
+						<!-- then pick smallest size in bytes -->
+						<source srcset="orange_hill_32.jpg" type="image/jpg">
+						<img src="orange_hill_32.webp" alt="orange hill">
+					</picture>
+					<cite>http://clipart-library.com/img/1778632.png</cite>
+				</td>
 			</tr>
 			<tr>
 				<td>Wrench Technician</td>
 				<td>Wrenches, Wrenches, Wrenches</td>
 				<td>May 2015</td>
 				<td>2 years</td>
+				<td>
+					<picture>
+						<!-- prefer allowing transparency -->
+						<source srcset="wrench_32.png" type="image/png">
+						<!-- then pick smallest size in bytes -->
+						<source srcset="wrench_32.webp" type="image/webp">
+						<img src="wrench_32.jpg" alt="wrench">
+					</picture>
+					<cite>https://clipground.com/wrenches-clipart.html</cite>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -92,7 +150,7 @@
 		<li>Very cool resume
 			<ul>
 				<li>
-					<iframe height="300" src="./index.html"></iframe>
+					<iframe height="300" src="index.html"></iframe>
 				</li>
 			</ul>
 		</li>
@@ -109,6 +167,7 @@
 		<source srcset="./persona_face.webp" type="image/webp">
 		<img src="./persona_face.jpg" width="256" height="256" alt="persona face">
 	</picture>
+	<cite>https://thispersondoesnotexist.com/</cite>
 	</section>
 	<section id="section_Experiments">
 	<h2>Experiments</h2>
@@ -150,9 +209,7 @@
 	<br>
 	<label for="eating-place-review">Review where you ate</label>
 	<br>
-	<textarea id="eating-place-review">
-		<i>Please tell me how good that place was.</i>
-	</textarea>
+	<textarea id="eating-place-review"></textarea>
 
 	<h3>Media</h3>
 	<figure>
@@ -169,6 +226,7 @@
 		<video controls loop src="3D_Pipes_cut.mp4" height="200">
 		</video>
 	</figure>
+	<cite>https://archive.org/details/3d-pipes</cite>
 	<h3>Drawing!</h3>
 	<h4>SVG drawing</h4>
 	Its a <strong>UFO</strong>! <aside>like the page icon</aside>
@@ -224,11 +282,16 @@
 		<li><a href="tel:+555-555-5555">555-555-5555</a></li>
 		<li>email: <a href="mailto:fivefivefive@email.com">fivefivefive@email.com</a></li>
 	</ul>
+	Your device:
+	<div id="phone-breakpoint">You are using a phone</div>
+	<div id="tablet-breakpoint">You are using a tablet</div>
+	<div id="laptop-desktop-breakpoint">You are using a laptop/desktop</div>
 	</footer>
 	<template id="email-and-telephone">
 		<li><a href="tel:+555-555-5555"></a></li>
 		<li><a href="mailto:fivefivefive@email.com"></a></li>
 	</template>
+	</div>
 </body>
 
 </html>

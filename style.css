@@ -1,0 +1,160 @@
+
+@font-face {
+	font-family: "Weddingday";
+	src:
+		url("weddingday-font/WeddingdayPersonalUseRegular-1Gvo0.ttf")
+	;
+	font-display: fallback;
+}
+:root {
+}
+h1{
+	display: flex;
+	justify-content: center;
+	font-family: "Weddingday";
+	font-size: 3rem;
+}
+nav ol{
+	display: flex;
+	list-style: none;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	background-color: rgb(228, 228, 228);
+	border-style: outset;
+	margin: 8px;
+}
+nav ol li {
+	--margin-h: 10px;
+	--margin-v: 8px;
+	--stroke: 0.03em;
+	--stroke-color: rgb(151, 0, 0);
+	--stroke-blur-radius: 1px;
+	margin-left: var(--margin-h);
+	margin-right: var(--margin-h);
+	margin-top: var(--margin-v);
+	margin-bottom: var(--margin-v);
+	font-size: 2rem;
+	text-shadow
+		: calc(-1*var(--stroke)) calc(-1*var(--stroke)) var(--stroke-blur-radius) var(--stroke-color)
+		, calc(-1*var(--stroke)) calc(+1*var(--stroke)) var(--stroke-blur-radius) var(--stroke-color)
+		, calc(+1*var(--stroke)) calc(-1*var(--stroke)) var(--stroke-blur-radius) var(--stroke-color)
+		, calc(+1*var(--stroke)) calc(+1*var(--stroke)) var(--stroke-blur-radius) var(--stroke-color)
+	;
+}
+nav ol li a{
+	color: rgb(0, 0, 0);
+}
+main{
+	/* transition: all 1s; */
+}
+#hypnosis-container{
+	display: block;
+	text-align: center;
+	/* justify-content: column; */
+	/* justify-content: center; */
+}
+#hypno-message{
+	font-size: 2rem;
+	animation-name: rainbow-color;
+	animation-duration: 2s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+}
+table{
+	border-collapse: collapse;
+}
+table,th,thead,tr,td {
+	padding: 10px;
+	border: 1px solid black;
+}
+td:nth-child(5) {
+	text-align: center;
+}
+td:nth-child(5) img {
+	/* center images */
+	height:2em;
+}
+@keyframes rainbow-color {
+	0% {
+		text-shadow: 0 0 0px hsl(0,100%,50%);
+	}
+	100% {
+		text-shadow: 0 0 8px hsl(90,100%,50%);
+	}
+}
+#hypno {
+	width:30%; height: 30%;
+	
+	animation-play-state: running;
+	animation-name: hypnotize;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	/* animation-direction: reverse; */
+	animation-iteration-count: infinite;
+	transition-property: width, height;
+	transition-duration: 1s;
+}
+#hypno:hover {
+	width: 75%;
+	height: 75%;
+}
+@keyframes hypnotize { 
+    100% {
+        transform:rotate(360deg); 
+    } 
+}
+#inner-body {
+	background-color: rgb(223, 223, 223);
+	margin-block: 20px;
+	margin-inline: 20px;
+	padding-block: 20px;
+	padding-inline: 20px;
+}
+body{
+	background: linear-gradient(rgb(99, 135, 255), rgb(142, 153, 255));
+	/* transition: all 1000ms; */
+	animation: 2s ease-out 0s 1 fade-in;
+}
+@keyframes fade-in {
+	from {
+		opacity: 0%;
+	}
+	to {
+		opacity: 100%;
+	}
+}
+
+h2 {
+	margin-left: 0px;
+}
+h2 {
+	margin-left: 100px;
+	transition: transform 1s;
+}
+#phone-breakpoint{
+	display:none;
+}
+#tablet-breakpoint{
+	display:none;
+}
+#laptop-desktop-breakpoint{
+	display:none;
+}
+@media (max-width: 480px)
+{
+	#phone-breakpoint{
+		display: block;
+	}
+}
+@media (min-width: 481px) and (max-width: 768)
+{
+	#tablet-breakpoint{
+		display: block;
+	}
+}
+@media (min-width: 769px)
+{
+	#laptop-desktop-breakpoint{
+		display: block;
+	}
+}
