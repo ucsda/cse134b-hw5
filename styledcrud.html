@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<style>
+		body {
+			border-style: groove;
+			border-width:  5px;
+			border-color: orange;
+		}
+	</style>
+	<title>Super cool resume: CRUD</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="inner-body">
+	<header>
+		<nav>
+			<ol>
+				<li><a href="index.html">Back</a></li>
+			</ol>
+		</nav>
+	</header>
+	<hr>
+	<main>
+		<table id="table_of_blogs">
+			<caption>Blogs</caption>
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Date</th>
+					<th>Summary</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- js inserts here -->
+			</tbody>
+		</table>
+		<div id="edit_post">
+			<dialog>
+				<div><label for="edit_post_title">Post Title</label></div>
+				<div><input type="text" name="title" id="edit_post_title" class="post_title"></div>
+				<div><label for="edit_post_date">Post Date</label></div>
+				<div><input type="date" name="edit_post_date" id="edit_post_date" class="post_date"></div>
+				<div><label for="edit_post_summary">Post Summary</label></div>
+				<div><textarea name="summary" id="edit_post_summary" class="post_summary"></textarea></div>
+				<button class="ok" name="ok">Ok</button>
+				<button class="cancel" name="cancel">Cancel</button>
+				<input hidden value="" id="edit_post_index" class="index">
+			</dialog>
+		</div>
+	
+		<div id="add_post">
+			<button id="button_add_post" class="makes_custom_prompt_dialog">Add</button>
+			<dialog>
+				<div><label for="add_post_title">Post Title</label></div>
+				<div><input type="text" name="title" id="add_post_title" class="post_title"></div>
+				<div><label for="add_post_date">Post Date</label></div>
+				<div><input type="date" name="add_post_date" id="add_post_date" class="post_date"></div>
+				<div><label for="add_post_summary">Post Summary</label></div>
+				<div><textarea name="summary" id="add_post_summary" class="post_summary"></textarea></div>
+				<button class="ok" name="ok">Ok</button>
+				<button class="cancel" name="cancel">Cancel</button>
+			</dialog>
+		</div>
+		<template id="blog_row_template">
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<button data-index="" data-kind="delete">Delete</button>
+					<img src="https://clipground.com/images/icon-trash-clipart-4.png" alt="trash bin icon" height="32">
+				</td>
+				<td>
+					<button data-index="" data-kind="edit">Edit</button>
+					<img src="https://clipground.com/images/autopencil-clipart-12.jpg" alt="pencil icon" height="32">
+				</td>
+			</tr>
+		</template>
+		<hr>
+		
+	</main>
+</div>
+	<script src="./third_party/purify.min.js"></script>
+	<script type="module" src="blog.js?v=3"></script>
+	
+</body>
+
+</html>
+

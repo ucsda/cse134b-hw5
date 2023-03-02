@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<style>
+		body {
+			border-style: groove;
+			border-width:  5px;
+			border-color: orange;
+		}
+	</style>
+	<title>Super cool resume: Native Dialogs</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="inner-body">
+	<header>
+		<nav>
+			<ol>
+				<li><a href="index.html">Back</a></li>
+			</ol>
+		</nav>
+	</header>
+	<hr>
+	<main>
+		<table>
+			<caption>Custom Dialogs</caption>
+			<colgroup>
+				<col span="1">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Button</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>
+					<div id="custom_Alert">
+						<button>Alert</button>	
+						<dialog>
+							<form method="dialog">
+								<p>Alert</p>
+								<button class="ok" name="ok">Ok</button>
+							</form>
+						</dialog>
+					</div>
+				</td></tr>
+				<tr><td>
+				<div id="custom_Confirm">
+					<button class="makes_confirm_dialog">Confirm</button>	
+					<dialog>
+						<form method="dialog">
+							<p>Do you really want to enter that?</p>
+						</form>
+						<button class="ok" name="ok">Ok</button>
+						<button class="cancel" name="cancel">Cancel</button>
+					</dialog>
+					<textarea></textarea>
+					<output></output>
+				</div>
+				</td></tr>
+
+				<tr><td>					
+				<div id="custom_Prompt">
+					<button class="makes_custom_prompt_dialog">Prompt</button>	
+					<dialog>
+						<form method="dialog">
+							<p>Enter data:</p>
+							<input type="text">
+						</form>
+						<button class="ok" name="ok">Ok</button>
+						<button class="cancel" name="cancel">Cancel</button>
+					</dialog>
+					<output></output>
+				</div>
+				</td></tr>
+				
+				<tr><td>					
+				<div id="custom_Safer_Prompt">
+					<button class="makes_custom_prompt_dialog">Safer Prompt</button>	
+					<dialog>
+						<form method="dialog">
+							<p>Enter data:</p>
+							<input type="text">
+						</form>
+						<button class="ok" name="ok">Ok</button>
+						<button class="cancel" name="cancel">Cancel</button>
+					</dialog>
+					<output></output>
+				</div>
+				</td></tr>
+
+			</tbody>
+		</table>
+		
+	</main>
+</div>
+	<script src="./third_party/purify.min.js"></script>
+	<script type="module" src="customdialog.js"></script>
+	
+</body>
+
+</html>

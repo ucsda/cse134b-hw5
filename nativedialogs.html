@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<style>
+		body {
+			border-style: groove;
+			border-width:  5px;
+			border-color: orange;
+		}
+	</style>
+	<title>Super cool resume: Native Dialogs</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="inner-body">
+	<header>
+		<nav>
+			<ol>
+				<li><a href="index.html">Back</a></li>
+			</ol>
+		</nav>
+	</header>
+	<hr>
+	<main>
+		<table>
+			<caption>Simple Dialogs</caption>
+			<colgroup>
+				<col span="1">
+			</colgroup>
+			<thead>
+				<tr>
+					<th>Button</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td><div id="Alert"><button>Alert</button></div></td></tr>
+				<tr><td>
+				<div id="Confirm">
+					<button>Confirm</button>
+					<textarea></textarea>
+					<output></output>
+				</div>
+				</td></tr>
+				<tr><td><div id="Prompt"><button>Prompt</button><output></output></div></td></tr>
+				<tr><td><div id="Safer_Prompt"><button>Safer Prompt</button><output></output></div></td></tr>
+			</tbody>
+		</table>
+		<hr>
+		
+	</main>
+</div>
+	<script src="./third_party/purify.min.js"></script>
+	<script>
+		let get = (id) => document.getElementById(id);
+		let btn = (node) => node.querySelector(":scope > button");
+		let click = (node) => (f) => node.addEventListener('click', f);
+		let set_output = (node, s) => node.querySelector("output").value = s;
+		let set_output_innerHTML = (node, s) => node.querySelector("output").innerHTML = s;
+		click(btn(get("Alert")))(() => {
+			// console.log("Alert");
+			alert("Alert");
+		});
+		{let node = get("Confirm");
+		click(btn(node))(() => {
+			// console.log("Confirm");
+			let did_confirm = window.confirm("Do you really want to enter that?");
+			if(!did_confirm){
+				return;
+			}
+			let v = node.querySelector("textarea").value;
+			set_output(node,
+				`The value returned by the confirm method is : ${v}`,
+			);
+		});}
+		{let node = get("Prompt");
+		click(btn(node))(() => {
+			// console.log("Prompt");
+			let v = window.prompt("Enter data:");
+			// console.log(v);
+			if (v === null) {
+				set_output(node,
+					`User didn't enter anything`,
+				);
+				return;
+			}
+			set_output_innerHTML(node,
+				v,
+			);
+		});}
+		
+		{let node = get("Safer_Prompt");
+		click(btn(node))(() => {
+			// console.log("Safer Prompt");
+			let v = window.prompt("Enter data:");
+			// console.log(v);
+			if (v === null) {
+				set_output(node,
+					`User didn't enter anything`,
+				);
+				return;
+			}
+			set_output(node,
+				v,
+			);
+			set_output_innerHTML(node,
+				DOMPurify.sanitize(v),
+			);
+		});}
+	</script>
+</body>
+
+</html>
