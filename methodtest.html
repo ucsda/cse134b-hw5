@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<style>
+		body {
+			border-style: groove;
+			border-width:  5px;
+			border-color: orange;
+		}
+	</style>
+	<title>Super cool resume: Method Test</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="inner-body">
+	<header>
+		<nav>
+			<ol>
+				<li><a href="index.html">Back</a></li>
+			</ol>
+		</nav>
+	</header>
+	<hr>
+	<main>
+		<h1>Epic HTTP Requests</h1>
+		<section id="input_form">
+			<h2>The form</h2>
+		<form id="the_form" method="post" action="https://httpbin.org/put">
+			<label for="id">Record id:</label>
+			<input type="number" name="id" id="id">
+			<br>
+			<label for="article_name">Article name:</label>
+			<input type="text" name="article_name" id="article_name">
+			<br>
+			<label for="article_body">Article body:</label>
+			<textarea name="article_body" id="article_body"></textarea>
+			<br>
+			<button type="submit">Submit</button>
+			<br>
+			<p>Current Time: <span class="insert_current_time"></span></p>
+		</form>
+		<hr>
+		<fieldset>
+			<legend>Request API:</legend>
+			<form id="request_api">
+				<input type="radio" id="fetch" name="api" value="fetch"
+				checked>
+				<label for="fetch">fetch</label>
+				<input type="radio" id="XHR" name="api" value="XHR">
+				<label for="XHR">XHR</label>
+			</form>
+		</fieldset>
+		
+		<button id="postBtn">POST</button>
+		<button id="getBtn">GET</button>
+		<button id="putBtn">PUT</button>
+		<button id="deleteBtn">DELETE</button>
+		</section>
+		<hr>
+		<section id="table_output">
+			<h2>Table output</h2>
+			<output class="table" id="response"></output>
+		</section>
+		<section id="raw_output">
+			<h2>Raw output</h2>
+			<output class="raw"></output>
+		</section>
+
+		<script type="module">
+			// this is only 150 lines so putting it in a js file and module-ing isn't that useful
+			function e() { return document.createElement(...arguments) };
+			function g() { return document.querySelector(...arguments) };
+			function gx(x) { return x.querySelector(...Array.prototype.slice.call(arguments, 1)) };
+			// table-izing json was easier to do myself than to find something online...
+			function json_to_html(x){
+				if (x instanceof Array) {
+					let t = e("table");
+					let head = e("thead");
+					t.appendChild(head);
+					let body = e("tbody");
+					for(let y in x){
+						let r = e("tr");
+						let d = e("td");
+						d.appendChild(json_to_html(y));
+						r.appendChild(d);
+						body.appendChild(r)
+					}
+					t.appendChild(body);
+					return t;
+				}else
+				if (typeof x == "object") {
+					let t = e("table");
+					let head = e("thead");
+					t.appendChild(head);
+					let body = e("tbody");
+					for(let key in x){
+						let y = x[key];
+						let r = e("tr");
+						{
+							let d = e("td");
+							let d2 = e("span");
+							d2.innerText = key;
+							d.appendChild(d2);
+							r.appendChild(d);
+						}
+						{
+							let d = e("td");
+							d.appendChild(json_to_html(y));
+							r.appendChild(d);
+						}
+						body.appendChild(r)
+					}
+					t.appendChild(body);
+					return t;
+				}else
+				{
+					let d = e("span");
+					d.innerText = x.toString();
+					return d;
+				}
+			};
+			function get_url_for_method(ty){ return `https://httpbin.org/${ty}`; };
+			function get_input_form_data(){
+				let keys = [
+					"id", "name", "body"
+				].map(x => `article_${x}`);
+				let form = g("form#the_form");
+				let fd = new FormData(form);
+				// let obj = Object.fromEntries(fd.entries());
+				// console.table(obj);
+				let obj = fd;
+				return obj;
+			}
+			function handle_response_text(text) {
+				// console.log(text);
+				let x = g("output.table");
+				x.innerHTML = '';
+				let obj = JSON.parse(text);
+				x.appendChild(json_to_html(obj));
+				g("output.raw").innerText = text;
+			}
+			function urlencode_obj(obj){
+				let args = Object.entries(obj).map(([k,v]) => {
+					// console.table({k:k, v:v});
+					return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`
+				});
+				let query = args.map((s, i) => {
+					if (i  == 0){ 
+						return `${s}`
+					}else{
+						return `&${s}`
+					}
+				}).join('');
+				return query;
+			}
+			function handle_response(r){
+				return r.blob()
+				.then(t => t.text())
+				.then(text => {
+					handle_response_text(text)
+				});
+			}
+			function is_using_xhr(){
+				let api = new FormData(document.getElementById("request_api")).get("api");
+				
+				// return true
+				// && false
+				// ;
+				return api === "XHR";
+			}
+			// "facade"
+			function send_http_req(x){
+				if(
+					is_using_xhr()
+				){
+					// console.log("xhr");
+					let xhr = new XMLHttpRequest();
+					xhr.open(x.method, x.url);
+					let headers = x.headers;
+					if (headers !== null) {
+						for(let k in headers){
+							xhr.setRequestHeader(k, headers[k]);
+						}
+					}
+					xhr.addEventListener('readystatechange',() => {
+						if (xhr.readyState === xhr.DONE && xhr.status === 200){
+							handle_response_text(xhr.responseText);
+						}
+					})
+					xhr.send(x.formdata);
+				}else{
+					// console.log("fetch");
+					let fd = x.formdata
+					// let body = fd === null ? fd : urlencode_obj(Object.fromEntries(fd.entries()));
+					let body = fd;
+					fetch(new Request(
+							x.url,
+							{method: x.method, body: body, headers: x.headers}
+						)
+					).then(handle_response);
+				}
+			}
+			function send_data_via_body(method){
+				let formdata = get_input_form_data();
+				let url = get_url_for_method(method);
+				send_http_req({method: method, url: url, formdata: formdata});
+			}
+			function partially_handle_http_req(){
+				let x = g(".insert_current_time");
+				x.innerHTML='';
+				let t = e("time");
+				t.innerText = new Date().toString();
+				x.appendChild(t);
+			};
+			g("#postBtn").addEventListener("click", function click_post_btn(){
+				partially_handle_http_req();
+				send_data_via_body("post");
+			});
+			g("#getBtn").addEventListener("click", function click_get_btn(){
+				partially_handle_http_req();
+				let method = "get";
+				let obj = get_input_form_data();
+				obj = Object.fromEntries(obj.entries())
+				let query = urlencode_obj(obj);
+				let url = get_url_for_method(method)
+					 + `?${query}`
+				 ;
+				send_http_req({method: method, url: url, formdata: null})
+			});
+			g("#putBtn").addEventListener("click", function click_put_btn(){
+				partially_handle_http_req();
+				send_data_via_body("put");
+			});
+			g("#deleteBtn").addEventListener("click", function click_delete_btn(){
+				partially_handle_http_req();
+				send_data_via_body("delete");
+			});
+		</script>
+		
+	</main>
+</div>
+	
+</body>
+
+</html>

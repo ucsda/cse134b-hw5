@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<style>
+		body {
+			border-style: groove;
+			border-width:  5px;
+			border-color: orange;
+		}
+	</style>
+	<title>Super cool resume: Method Test</title>
+	<meta charset="utf-8">
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9480/9480588.png">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div id="inner-body">
+	<header>
+		<nav>
+			<ol>
+				<li><a href="index.html">Back</a></li>
+		</ol>
+		</nav>
+	</header>
+	<hr>
+	<main>
+		<h1>Web Component (frameworks)</h1>
+		<h2>With react:</h2>
+		<react-root>
+		</react-root>
+		<h2>With Vue:</h2>
+		<vue-root>
+			<button @click="increment">
+				<span>Times Clicked: </span>
+				<span>{{count}}</span>
+			</button>
+		</vue-root>
+			
+	</main>
+</div>
+	<!-- react.js -->
+	<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+	<script>
+		function ButtonCountReact() {
+			const [count, set_count] = React.useState(0);
+
+			return React.createElement(
+				'button',
+				{
+					onClick: () => set_count(count + 1),
+				},
+				`Times Clicked: ${count}`
+			);
+		}
+		let rootNode = document.querySelector("react-root");
+		let root = ReactDOM.createRoot(rootNode);
+		root.render(React.createElement(ButtonCountReact))
+	</script>
+	<!-- vue.js -->
+	<script type="importmap">
+		{
+			"imports": {
+				"vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+			}
+		}
+	</script>
+	<script type="module">
+		import { createApp } from 'vue';
+		createApp({
+			data(){
+				return {
+					count: 0
+				}
+			},
+			methods: {
+				increment(){
+					this.count += 1;
+				}
+			}
+		}).mount('vue-root');
+	</script>
+	
+</body>
+
+</html>
